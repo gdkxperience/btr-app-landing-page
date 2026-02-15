@@ -1,0 +1,220 @@
+export interface SeedService {
+  id: string
+  salonId: string
+  name: string
+  description?: string
+  duration: number
+  price: number
+  image?: string
+  isTopService: boolean
+  includedItems?: string[]
+}
+
+export const services: SeedService[] = [
+  // ── Blade Studio (salon-001) ── barber shop
+  {
+    id: 'svc-001',
+    salonId: 'salon-001',
+    name: 'Classic Fade',
+    description: 'Clean skin fade with a sharp line-up and neck taper.',
+    duration: 30,
+    price: 35,
+    image: '/images/services/classic-fade.jpg',
+    isTopService: true,
+    includedItems: ['Hot towel finish', 'Neck shave'],
+  },
+  {
+    id: 'svc-002',
+    salonId: 'salon-001',
+    name: 'Beard Sculpt',
+    description: 'Precision beard trim, shape, and conditioning treatment.',
+    duration: 20,
+    price: 25,
+    image: '/images/services/beard-sculpt.jpg',
+    isTopService: false,
+    includedItems: ['Beard oil application', 'Hot towel'],
+  },
+  {
+    id: 'svc-003',
+    salonId: 'salon-001',
+    name: 'Buzz Cut',
+    description: 'Even all-over clipper cut at your preferred guard length.',
+    duration: 15,
+    price: 20,
+    image: '/images/services/buzz-cut.jpg',
+    isTopService: false,
+  },
+
+  // ── The Style Bar (salon-002) ── trendy salon
+  {
+    id: 'svc-004',
+    salonId: 'salon-002',
+    name: 'Signature Blowout',
+    description: 'Luxurious wash, blowdry, and styling for all hair types.',
+    duration: 45,
+    price: 65,
+    image: '/images/services/signature-blowout.jpg',
+    isTopService: true,
+    includedItems: ['Deep conditioning mask', 'Heat protectant', 'Finishing spray'],
+  },
+  {
+    id: 'svc-005',
+    salonId: 'salon-002',
+    name: 'Precision Cut & Style',
+    description: 'Customized haircut with consultation and finished styling.',
+    duration: 60,
+    price: 85,
+    image: '/images/services/precision-cut.jpg',
+    isTopService: false,
+    includedItems: ['Consultation', 'Shampoo & condition', 'Style finish'],
+  },
+  {
+    id: 'svc-006',
+    salonId: 'salon-002',
+    name: 'Express Trim',
+    description: 'Quick clean-up cut to maintain your current style.',
+    duration: 20,
+    price: 35,
+    image: '/images/services/express-trim.jpg',
+    isTopService: false,
+  },
+
+  // ── Bella Hair Co. (salon-003) ── women's salon
+  {
+    id: 'svc-007',
+    salonId: 'salon-003',
+    name: 'Balayage Highlights',
+    description: 'Hand-painted highlights for a natural, sun-kissed look.',
+    duration: 150,
+    price: 200,
+    image: '/images/services/balayage-highlights.jpg',
+    isTopService: true,
+    includedItems: ['Toner', 'Olaplex treatment', 'Blowout finish'],
+  },
+  {
+    id: 'svc-008',
+    salonId: 'salon-003',
+    name: 'Keratin Smoothing',
+    description: 'Professional keratin treatment to eliminate frizz and add shine.',
+    duration: 120,
+    price: 175,
+    image: '/images/services/keratin-smoothing.jpg',
+    isTopService: false,
+    includedItems: ['Deep cleanse', 'Keratin application', 'Flat iron seal'],
+  },
+  {
+    id: 'svc-009',
+    salonId: 'salon-003',
+    name: 'Women\'s Cut & Finish',
+    description: 'Full haircut with wash, style, and finishing touches.',
+    duration: 60,
+    price: 75,
+    image: '/images/services/womens-cut-finish.jpg',
+    isTopService: false,
+    includedItems: ['Shampoo & condition', 'Blowdry'],
+  },
+
+  // ── Crown & Craft (salon-004) ── premium barber
+  {
+    id: 'svc-010',
+    salonId: 'salon-004',
+    name: 'Royal Shave',
+    description: 'Traditional hot lather straight-razor shave with premium products.',
+    duration: 45,
+    price: 55,
+    image: '/images/services/royal-shave.jpg',
+    isTopService: true,
+    includedItems: ['Hot towel prep', 'Straight razor shave', 'Aftershave balm', 'Face massage'],
+  },
+  {
+    id: 'svc-011',
+    salonId: 'salon-004',
+    name: 'Gentleman\'s Cut',
+    description: 'Premium haircut with detailed scissor and clipper work.',
+    duration: 45,
+    price: 50,
+    image: '/images/services/gentlemans-cut.jpg',
+    isTopService: false,
+    includedItems: ['Consultation', 'Shampoo', 'Style finish'],
+  },
+  {
+    id: 'svc-012',
+    salonId: 'salon-004',
+    name: 'Cut & Shave Combo',
+    description: 'Our gentleman\'s cut paired with a full straight-razor shave.',
+    duration: 75,
+    price: 90,
+    image: '/images/services/cut-shave-combo.jpg',
+    isTopService: false,
+    includedItems: ['Haircut', 'Hot towel shave', 'Styling', 'Aftershave treatment'],
+  },
+
+  // ── Glow Beauty Studio (salon-005) ── beauty studio
+  {
+    id: 'svc-013',
+    salonId: 'salon-005',
+    name: 'Full Glam Makeover',
+    description: 'Complete makeup application for events, photoshoots, or nights out.',
+    duration: 90,
+    price: 120,
+    image: '/images/services/full-glam-makeover.jpg',
+    isTopService: true,
+    includedItems: ['Skin prep', 'Full face makeup', 'Lash application', 'Setting spray'],
+  },
+  {
+    id: 'svc-014',
+    salonId: 'salon-005',
+    name: 'Lash Extensions',
+    description: 'Classic or volume lash extensions applied lash-by-lash.',
+    duration: 120,
+    price: 150,
+    image: '/images/services/lash-extensions.jpg',
+    isTopService: false,
+    includedItems: ['Consultation', 'Classic or volume set', 'Aftercare kit'],
+  },
+  {
+    id: 'svc-015',
+    salonId: 'salon-005',
+    name: 'Brow Sculpt & Tint',
+    description: 'Eyebrow shaping with wax or thread and a custom tint.',
+    duration: 30,
+    price: 40,
+    image: '/images/services/brow-sculpt-tint.jpg',
+    isTopService: false,
+    includedItems: ['Shaping', 'Tinting', 'Soothing gel'],
+  },
+
+  // ── Fresh Cuts NYC (salon-006) ── urban barbershop
+  {
+    id: 'svc-016',
+    salonId: 'salon-006',
+    name: 'Skin Fade & Design',
+    description: 'Sharp skin fade with optional custom hair design or part.',
+    duration: 40,
+    price: 45,
+    image: '/images/services/skin-fade-design.jpg',
+    isTopService: true,
+    includedItems: ['Consultation', 'Design work', 'Line-up', 'Hot towel'],
+  },
+  {
+    id: 'svc-017',
+    salonId: 'salon-006',
+    name: 'Kids Cut',
+    description: 'Patient, fun haircuts for children under 12.',
+    duration: 25,
+    price: 15,
+    image: '/images/services/kids-cut.jpg',
+    isTopService: false,
+  },
+  {
+    id: 'svc-018',
+    salonId: 'salon-006',
+    name: 'Dreadlock Maintenance',
+    description: 'Retwist, tightening, and styling for all dreadlock types.',
+    duration: 90,
+    price: 85,
+    image: '/images/services/dreadlock-maintenance.jpg',
+    isTopService: false,
+    includedItems: ['Wash', 'Retwist', 'Palm roll', 'Oil treatment'],
+  },
+]
