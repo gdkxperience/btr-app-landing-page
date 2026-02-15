@@ -20,7 +20,6 @@ export function TransitionScreen() {
     window.location.href = BTR_APP_URL
   }
 
-  // Dissolve phase — blurs out the chat
   if (phase === 'dissolve') {
     return (
       <div
@@ -35,7 +34,6 @@ export function TransitionScreen() {
     )
   }
 
-  // "Sound familiar?" phase
   if (phase === 'familiar') {
     return (
       <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff', zIndex: 90 }}>
@@ -47,13 +45,12 @@ export function TransitionScreen() {
             animation: 'fade-in-up 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
           }}
         >
-          Sound familiar?
+          Познато, нали?
         </p>
       </div>
     )
   }
 
-  // "There's a better way." phase
   if (phase === 'better') {
     return (
       <div style={{ position: 'fixed', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#fff', zIndex: 90 }}>
@@ -65,7 +62,7 @@ export function TransitionScreen() {
             animation: 'fade-in-up 700ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
           }}
         >
-          There&apos;s a better way.
+          Има по-добър начин.
         </p>
         <p
           style={{
@@ -77,25 +74,23 @@ export function TransitionScreen() {
             animation: 'fade-in-up 600ms cubic-bezier(0.4, 0, 0.2, 1) 400ms forwards',
           }}
         >
-          No calls. No DMs. Just book.
+          Без обаждания. Без съобщения. Просто запази.
         </p>
       </div>
     )
   }
 
-  // CTA phase — show button to go to app
   return (
     <div style={{ position: 'fixed', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, background: '#fff', zIndex: 90 }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, opacity: 0, animation: 'fade-in-up 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards' }}>
-        {/* BTR Logo */}
         <div style={{ fontSize: 48, fontWeight: 800, letterSpacing: '-0.04em', color: '#ff5400', marginBottom: 4 }}>
           BTR
         </div>
         <p className="transition-text" style={{ fontSize: 22 }}>
-          Book &middot; Transform &middot; Repeat
+          Запази &middot; Промени &middot; Повтори
         </p>
         <p style={{ fontSize: 15, color: '#8E8E93', fontWeight: 400, textAlign: 'center', maxWidth: 280, lineHeight: 1.4 }}>
-          Discover salons, browse real portfolios, and book instantly.
+          Открий салони, разгледай реални портфолиа и запази час мигновено.
         </p>
       </div>
       <button
@@ -103,7 +98,7 @@ export function TransitionScreen() {
         className="transition-cta"
         style={{ opacity: 0, animation: 'fade-in-up 600ms cubic-bezier(0.4, 0, 0.2, 1) 300ms forwards' }}
       >
-        Try BTR Now
+        Пробвай BTR
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <path d="M3.75 9h10.5M9.75 4.5L14.25 9l-4.5 4.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
