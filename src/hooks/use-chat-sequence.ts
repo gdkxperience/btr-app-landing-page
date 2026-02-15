@@ -1,14 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ChatMessage, Conversation } from '@/data/chat-script'
 
+export interface VisibleItem {
+  kind: 'message' | 'timestamp'
+  message?: ChatMessage
+  text?: string
+  key: string
+}
+
 interface UseChatSequenceReturn {
   currentConversation: number
-  visibleMessages: ChatMessage[]
+  visibleItems: VisibleItem[]
   isTyping: boolean
   deliveryStatus: 'none' | 'delivered' | 'read'
   contact: { name: string; initials: string }
   isComplete: boolean
   isPlaying: boolean
+  isFading: boolean
   skip: () => void
 }
 
@@ -16,13 +24,14 @@ export function useChatSequence(
   script: Conversation[]
 ): UseChatSequenceReturn {
   const [currentConversation, setCurrentConversation] = useState(0)
-  const [visibleMessages, setVisibleMessages] = useState<ChatMessage[]>([])
+  const [visibleItems, setVisibleItems] = useState<VisibleItem[]>([])
   const [isTyping, setIsTyping] = useState(false)
   const [deliveryStatus, setDeliveryStatus] = useState<
     'none' | 'delivered' | 'read'
   >('none')
   const [isComplete, setIsComplete] = useState(false)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [isFading, setIsFading] = useState(false)
 
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
 
@@ -33,9 +42,10 @@ export function useChatSequence(
 
   const skip = useCallback(() => {
     clearTimeouts()
-    setVisibleMessages([])
+    setVisibleItems([])
     setIsTyping(false)
     setDeliveryStatus('none')
+    setIsFading(false)
     setIsPlaying(false)
     setIsComplete(true)
   }, [clearTimeouts])
@@ -44,25 +54,30 @@ export function useChatSequence(
     if (!isPlaying || script.length === 0) return
 
     let cumulativeDelay = 0
+    let tsIdx = 0
 
     const scheduleTimeout = (fn: () => void, delay: number) => {
       cumulativeDelay += delay
       const id = setTimeout(fn, cumulativeDelay)
       timeoutsRef.current.push(id)
-      return cumulativeDelay
     }
 
     for (let convIdx = 0; convIdx < script.length; convIdx++) {
       const conversation = script[convIdx]!
 
-      // Crossfade delay between conversations (except the first)
+      // Crossfade between conversations (except the first)
       if (convIdx > 0) {
+        const nextIdx = convIdx
         scheduleTimeout(() => {
-          setVisibleMessages([])
+          setIsFading(true)
+        }, 0)
+        scheduleTimeout(() => {
+          setVisibleItems([])
           setIsTyping(false)
           setDeliveryStatus('none')
-          setCurrentConversation(convIdx)
-        }, 300)
+          setCurrentConversation(nextIdx)
+          setIsFading(false)
+        }, 500)
       }
 
       for (const event of conversation.events) {
@@ -71,7 +86,10 @@ export function useChatSequence(
             const msg = event.data!
             scheduleTimeout(() => {
               setIsTyping(false)
-              setVisibleMessages((prev) => [...prev, msg])
+              setVisibleItems((prev) => [
+                ...prev,
+                { kind: 'message', message: msg, key: msg.id },
+              ])
             }, event.delay)
             break
           }
@@ -96,9 +114,24 @@ export function useChatSequence(
             }, event.delay)
             break
           }
+          case 'timestamp': {
+            const text = event.text ?? ''
+            const key = `ts-${convIdx}-${tsIdx++}`
+            scheduleTimeout(() => {
+              setVisibleItems((prev) => [
+                ...prev,
+                { kind: 'timestamp', text, key },
+              ])
+            }, event.delay)
+            break
+          }
+          case 'pause': {
+            scheduleTimeout(() => {}, event.delay)
+            break
+          }
           case 'clear': {
             scheduleTimeout(() => {
-              setVisibleMessages([])
+              setVisibleItems([])
               setIsTyping(false)
               setDeliveryStatus('none')
             }, event.delay)
@@ -112,7 +145,7 @@ export function useChatSequence(
     scheduleTimeout(() => {
       setIsPlaying(false)
       setIsComplete(true)
-    }, 800)
+    }, 400)
 
     return () => {
       clearTimeouts()
@@ -126,12 +159,13 @@ export function useChatSequence(
 
   return {
     currentConversation,
-    visibleMessages,
+    visibleItems,
     isTyping,
     deliveryStatus,
     contact,
     isComplete,
     isPlaying,
+    isFading,
     skip,
   }
 }
