@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-inter',
 })
 
 export const metadata: Metadata = {
-  title: 'BTR - Резервирайте вашия следващ салон',
-  description: 'Открийте и резервирайте най-добрите салони за красота в България',
+  title: 'BTR - Открий своя Beauty Master',
+  description: 'Платформата от ново поколение за откриване и резервиране на най-добрите beauty специалисти в България. AI-powered търсене, мигновени резервации.',
 }
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="bg" className={inter.variable}>
-      <body>{children}</body>
+      <body className="bg-dark-900 text-dark-50 overflow-x-hidden">{children}</body>
     </html>
   )
 }

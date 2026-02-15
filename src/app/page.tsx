@@ -8,14 +8,17 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
-      <Navbar />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <Testimonials />
-      <CTA />
-      <Footer />
+    <main className="min-h-screen bg-dark-900 relative">
+      <div className="mesh-gradient fixed inset-0 pointer-events-none" />
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <Testimonials />
+        <CTA />
+        <Footer />
+      </div>
     </main>
   )
 }

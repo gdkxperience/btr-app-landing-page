@@ -1,82 +1,124 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Star, Quote } from 'lucide-react'
 
-const works = [
-  { artist: 'Мария', category: 'Прическа', likes: 234 },
-  { artist: 'Иван', category: 'Бръснене', likes: 189 },
-  { artist: 'Елена', category: 'Грим', likes: 456 },
-  { artist: 'Стефан', category: 'Боядисване', likes: 321 },
-  { artist: 'Ани', category: 'Маникюр', likes: 278 },
-  { artist: 'Георги', category: 'Татуировка', likes: 512 },
+const testimonials = [
+  {
+    name: 'Мария Иванова',
+    role: 'Клиент',
+    avatar: '\uD83D\uDC69\u200D\uD83E\uDDB0',
+    rating: 5,
+    text: 'BTR напълно промени начина, по който търся beauty услуги. AI препоръките са невероятно точни - намерих перфектния фризьор още от първия път!',
+  },
+  {
+    name: 'Георги Петров',
+    role: 'Бръснар',
+    avatar: '\uD83D\uDC68\u200D\uD83E\uDDB1',
+    rating: 5,
+    text: 'Като beauty специалист, BTR ми помага да достигна до нови клиенти. Мигновените резервации спестяват часове от работния ми ден.',
+  },
+  {
+    name: 'Елена Димитрова',
+    role: 'Makeup Artist',
+    avatar: '\uD83D\uDC69\u200D\uD83C\uDFA8',
+    rating: 5,
+    text: 'Платформата е красива и интуитивна. Портфолиото ми получи невероятна видимост и клиентите ми се удвоиха за месец.',
+  },
 ]
 
 export default function Testimonials() {
   return (
-    <section id="works" className="py-24 px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="max-w-2xl mb-16">
+    <section id="testimonials" className="section-padding relative">
+      <div className="container-max">
+        {/* Section header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl lg:text-4xl font-light tracking-tight text-gray-900 mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4"
           >
-            Портфолио
+            Какво казват <span className="text-gradient">нашите потребители</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-gray-600 font-light"
+            className="text-lg text-dark-200 font-light"
           >
-            Вдъхновение от реални работи на нашите майстори.
+            Реални истории от хора, които вече ползват BTR.
           </motion.p>
         </div>
 
-        {/* Masonry-style grid */}
-        <div className="columns-2 lg:columns-4 gap-4 space-y-4">
-          {works.map((work, i) => (
+        {/* Testimonial cards - bento grid */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {testimonials.map((testimonial, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
+              key={testimonial.name}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="break-inside-avoid group cursor-pointer"
+              transition={{ delay: i * 0.15 }}
+              whileHover={{ y: -4 }}
+              className="glass rounded-2xl p-8 gradient-border transition-all duration-300"
             >
-              <div className={`bg-gray-100 rounded-2xl overflow-hidden mb-3 ${
-                i % 3 === 0 ? 'aspect-[3/4]' : i % 3 === 1 ? 'aspect-square' : 'aspect-[4/5]'
-              }`}>
-                <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 group-hover:scale-105 transition-transform duration-700" />
+              <Quote size={24} className="text-primary/40 mb-4" />
+
+              {/* Stars */}
+              <div className="flex gap-1 mb-4">
+                {Array.from({ length: testimonial.rating }).map((_, j) => (
+                  <motion.div
+                    key={j}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.15 + j * 0.05 }}
+                  >
+                    <Star size={16} className="fill-yellow-400 text-yellow-400" />
+                  </motion.div>
+                ))}
               </div>
-              
-              <div className="px-1">
-                <p className="text-sm text-gray-900 font-light mb-1">
-                  {work.category}
-                </p>
-                <p className="text-xs text-gray-500">
-                  от {work.artist} · {work.likes} харесвания
-                </p>
+
+              <p className="text-dark-100 font-light leading-relaxed mb-6">
+                &ldquo;{testimonial.text}&rdquo;
+              </p>
+
+              {/* Author */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-accent-purple/20 flex items-center justify-center text-lg">
+                  {testimonial.avatar}
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-white">{testimonial.name}</div>
+                  <div className="text-xs text-dark-300">{testimonial.role}</div>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
+        {/* Social proof bar */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="text-center mt-12"
+          className="glass rounded-full py-4 px-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm"
         >
-          <a 
-            href="#gallery" 
-            className="inline-block px-6 py-3 text-sm text-gray-900 border border-gray-200 rounded-full hover:bg-gray-50 transition-colors"
-          >
-            Разгледай галерията
-          </a>
+          <div className="flex -space-x-2">
+            {['\uD83D\uDC69\u200D\uD83E\uDDB0', '\uD83D\uDC68\u200D\uD83E\uDDB1', '\uD83D\uDC69\u200D\uD83C\uDFA8', '\uD83E\uDDD1\u200D\uD83D\uDCBC', '\uD83D\uDC69\u200D\uD83D\uDCBB'].map((emoji, i) => (
+              <div
+                key={i}
+                className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-accent-purple/20 border-2 border-dark-900 flex items-center justify-center text-xs"
+              >
+                {emoji}
+              </div>
+            ))}
+          </div>
+          <span className="text-dark-200">
+            <span className="text-white font-semibold">10,000+</span> потребители вече се доверяват на BTR
+          </span>
         </motion.div>
       </div>
     </section>
