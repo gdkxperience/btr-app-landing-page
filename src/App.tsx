@@ -4,14 +4,14 @@ export function App() {
   return (
     <div className="app-shell">
       <AppRouter />
-      {/* Hidden SEO content */}
+      {/* Скрито SEO съдържание */}
       <div className="sr-only">
-        <h1>BTR - Book Transform Repeat</h1>
+        <h1>BTR — Запази · Промени · Повтори</h1>
         <p>
-          BTR is a beauty and wellness booking platform. Discover salons near
-          you, browse real stylist portfolios, and book appointments instantly.
-          No calls, no DMs, no waiting. Find the perfect barber, hairstylist,
-          colorist, or makeup artist in your area.
+          BTR е платформа за резервации в сферата на красотата. Открийте салони
+          наблизо, разгледайте реални портфолиа на стилисти и запазете час
+          мигновено. Без обаждания, без съобщения, без чакане. Намерете
+          перфектния фризьор, стилист, колорист или грим артист във вашия район.
         </p>
       </div>
     </div>

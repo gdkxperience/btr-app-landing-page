@@ -44,7 +44,7 @@ export function ChatScreen({ onComplete }: ChatScreenProps) {
 
         {/* Skip */}
         <button onClick={skip} className="skip-btn" aria-label="Skip chat animation">
-          Skip
+          Пропусни
         </button>
 
         {/* iOS Status Bar */}
@@ -77,7 +77,7 @@ export function ChatScreen({ onComplete }: ChatScreenProps) {
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M9 1L1.5 9L9 17" stroke="#007AFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span>Messages</span>
+            <span>Съобщения</span>
           </div>
           <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontSize: 17, fontWeight: 600, whiteSpace: 'nowrap', transition: 'opacity 0.3s ease', opacity: isFading ? 0 : 1 }}>
             {contact.name}
