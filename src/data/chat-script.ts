@@ -18,7 +18,8 @@ export interface Conversation {
   events: ChatEvent[]
 }
 
-// ─── Разговор 1: Glamour Studio — Отпращане ──────────────────────
+// ─── 1. Glamour Studio — Отпращане ───────────────────────────────
+// "Обади се по-късно" → на работа съм → прочетено → тишина
 const glamourStudio: Conversation = {
   contactName: 'Glamour Studio',
   contactInitials: 'GS',
@@ -48,7 +49,8 @@ const glamourStudio: Conversation = {
   ],
 }
 
-// ─── Разговор 2: The Style Bar — Призракът ───────────────────────
+// ─── 2. The Style Bar — Призракът ────────────────────────────────
+// Прочетено → тишина → "Здравейте?" → прочетено → тишина
 const theStyleBar: Conversation = {
   contactName: 'The Style Bar',
   contactInitials: 'SB',
@@ -74,7 +76,8 @@ const theStyleBar: Conversation = {
   ],
 }
 
-// ─── Разговор 3: Bella Hair Co. — Препращане ────────────────────
+// ─── 3. Bella Hair Co. — Препращане ─────────────────────────────
+// Инстаграм → нямам → Фейсбук
 const bellaHairCo: Conversation = {
   contactName: 'Bella Hair Co.',
   contactInitials: 'BH',
@@ -109,7 +112,8 @@ const bellaHairCo: Conversation = {
   ],
 }
 
-// ─── Разговор 4: Luxe Beauty Lounge — Отмяната ──────────────────
+// ─── 4. Luxe Beauty Lounge — Отмяната ───────────────────────────
+// Потвърждаване → отмяна → "пишете ни следващата седмица"
 const luxeBeauty: Conversation = {
   contactName: 'Luxe Beauty Lounge',
   contactInitials: 'LB',
@@ -144,9 +148,133 @@ const luxeBeauty: Conversation = {
   ],
 }
 
+// ─── 5. Nova Hair — "Зависи" ────────────────────────────────────
+// Пита за цена → зависи от дължината → елате на консултация
+const novaHair: Conversation = {
+  contactName: 'Nova Hair',
+  contactInitials: 'NH',
+  events: [
+    { type: 'timestamp', text: 'Днес 10:22', delay: 400 },
+    {
+      type: 'message',
+      data: { id: 'nh-1', sender: 'user', text: 'Здравейте! Колко би струвало подстригване и боядисване?' },
+      delay: 300,
+    },
+    { type: 'delivered', delay: 400 },
+    { type: 'typing', duration: 1800, delay: 1000 },
+    {
+      type: 'message',
+      data: { id: 'nh-2', sender: 'salon', text: 'Зависи от дължината и състоянието на косата' },
+      delay: 0,
+    },
+    { type: 'pause', delay: 400 },
+    {
+      type: 'message',
+      data: { id: 'nh-3', sender: 'user', text: 'Средна дължина, нямам боя в момента. Може ли поне ориентировъчно?' },
+      delay: 400,
+    },
+    { type: 'delivered', delay: 300 },
+    { type: 'typing', duration: 1500, delay: 900 },
+    {
+      type: 'message',
+      data: { id: 'nh-4', sender: 'salon', text: 'Трябва да дойдете на консултация първо, не мога да кажа без да видя косата \u{1F937}\u{200D}\u{2640}\u{FE0F}' },
+      delay: 0,
+    },
+    { type: 'pause', delay: 2200 },
+  ],
+}
+
+// ─── 6. Prestige Salon — Всичко заето ───────────────────────────
+// Тази седмица нямаме → следващата? → също → ???
+const prestigeSalon: Conversation = {
+  contactName: 'Prestige Salon',
+  contactInitials: 'PS',
+  events: [
+    { type: 'timestamp', text: 'Днес 13:10', delay: 400 },
+    {
+      type: 'message',
+      data: { id: 'ps-1', sender: 'user', text: 'Здравейте, имате ли свободен час тази седмица за маникюр?' },
+      delay: 300,
+    },
+    { type: 'delivered', delay: 400 },
+    { type: 'typing', duration: 1200, delay: 1000 },
+    {
+      type: 'message',
+      data: { id: 'ps-2', sender: 'salon', text: 'Тази седмица нямаме нищо свободно' },
+      delay: 0,
+    },
+    { type: 'pause', delay: 400 },
+    {
+      type: 'message',
+      data: { id: 'ps-3', sender: 'user', text: 'А следващата седмица? Всеки ден ми върши работа' },
+      delay: 400,
+    },
+    { type: 'delivered', delay: 300 },
+    { type: 'typing', duration: 1500, delay: 1000 },
+    {
+      type: 'message',
+      data: { id: 'ps-4', sender: 'salon', text: 'Следващата също е пълна, опитайте пак по-нататък' },
+      delay: 0,
+    },
+    { type: 'pause', delay: 500 },
+    {
+      type: 'message',
+      data: { id: 'ps-5', sender: 'user', text: 'А кога имате свободно? \u{1F605}' },
+      delay: 400,
+    },
+    { type: 'delivered', delay: 300 },
+    { type: 'read', delay: 1200 },
+    { type: 'pause', delay: 2500 },
+  ],
+}
+
+// ─── 7. Diva Studio — Гласово съобщение ─────────────────────────
+// Отговарят само с гласови → не мога да слушам на работа
+const divaStudio: Conversation = {
+  contactName: 'Diva Studio',
+  contactInitials: 'DS',
+  events: [
+    { type: 'timestamp', text: 'Днес 16:45', delay: 400 },
+    {
+      type: 'message',
+      data: { id: 'ds-1', sender: 'user', text: 'Здравейте! Работите ли с кератинова терапия? И колко струва?' },
+      delay: 300,
+    },
+    { type: 'delivered', delay: 400 },
+    { type: 'typing', duration: 1800, delay: 800 },
+    {
+      type: 'message',
+      data: { id: 'ds-2', sender: 'salon', text: '\u{1F3A4} Гласово съобщение (0:47)' },
+      delay: 0,
+    },
+    { type: 'pause', delay: 600 },
+    {
+      type: 'message',
+      data: { id: 'ds-3', sender: 'user', text: 'Не мога да слушам гласови в момента, може ли на текст? \u{1F64F}' },
+      delay: 400,
+    },
+    { type: 'delivered', delay: 300 },
+    { type: 'typing', duration: 1500, delay: 1000 },
+    {
+      type: 'message',
+      data: { id: 'ds-4', sender: 'salon', text: '\u{1F3A4} Гласово съобщение (0:32)' },
+      delay: 0,
+    },
+    { type: 'pause', delay: 2200 },
+  ],
+}
+
 export const conversations: Conversation[] = [
   glamourStudio,
   theStyleBar,
   bellaHairCo,
   luxeBeauty,
+  novaHair,
+  prestigeSalon,
+  divaStudio,
 ]
+
+/** Pick one conversation at random */
+export function getRandomConversation(): Conversation {
+  return conversations[Math.floor(Math.random() * conversations.length)]!
+}

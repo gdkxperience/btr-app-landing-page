@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
-import { conversations } from '@/data/chat-script'
+import { useEffect, useMemo, useRef } from 'react'
+import { getRandomConversation } from '@/data/chat-script'
 import { useChatSequence } from '@/hooks/use-chat-sequence'
 import { ChatBubble } from './chat-bubble'
 import { TypingIndicator } from './typing-indicator'
@@ -10,16 +10,17 @@ interface ChatScreenProps {
 }
 
 export function ChatScreen({ onComplete }: ChatScreenProps) {
+  // Pick one random conversation on mount
+  const script = useMemo(() => [getRandomConversation()], [])
+
   const {
-    currentConversation,
     visibleItems,
     isTyping,
     deliveryStatus,
     contact,
     isComplete,
-    isFading,
     skip,
-  } = useChatSequence(conversations)
+  } = useChatSequence(script)
 
   const onCompleteRef = useRef(onComplete)
   onCompleteRef.current = onComplete
@@ -79,27 +80,18 @@ export function ChatScreen({ onComplete }: ChatScreenProps) {
             </svg>
             <span>Съобщения</span>
           </div>
-          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontSize: 17, fontWeight: 600, whiteSpace: 'nowrap', transition: 'opacity 0.3s ease', opacity: isFading ? 0 : 1 }}>
+          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', fontSize: 17, fontWeight: 600, whiteSpace: 'nowrap' }}>
             {contact.name}
           </div>
           <div style={{ width: 60 }} />
         </div>
 
         {/* Contact header */}
-        <div className="imessage-contact-header" style={{ transition: 'opacity 0.4s ease, transform 0.4s ease', opacity: isFading ? 0 : 1, transform: isFading ? 'translateY(-4px)' : 'translateY(0)' }}>
+        <div className="imessage-contact-header">
           <div className="avatar">
             <span>{contact.initials}</span>
           </div>
           <div className="name">{contact.name}</div>
-        </div>
-
-        {/* Progress dots */}
-        <div style={{ padding: '4px 0 8px', display: 'flex', justifyContent: 'center' }}>
-          <div className="conversation-dots">
-            {conversations.map((_, i) => (
-              <div key={i} className={`dot${i === currentConversation ? ' active' : ''}${i < currentConversation ? ' completed' : ''}`} />
-            ))}
-          </div>
         </div>
 
         {/* Messages */}
@@ -110,9 +102,6 @@ export function ChatScreen({ onComplete }: ChatScreenProps) {
             justifyContent: 'flex-end', gap: 4,
             paddingLeft: 6, paddingRight: 6, paddingBottom: 12,
             overflowY: 'auto',
-            transition: 'opacity 0.4s ease, transform 0.4s ease',
-            opacity: isFading ? 0 : 1,
-            transform: isFading ? 'scale(0.98)' : 'scale(1)',
           }}
           aria-live="polite"
           role="log"
